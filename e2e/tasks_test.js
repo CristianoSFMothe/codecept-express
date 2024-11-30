@@ -1,9 +1,14 @@
-Feature('tasks');
+const { faker } = require('@faker-js/faker')
+
+Feature('tasks')
 
 Scenario('deve poder cadastrar uma nova tarefa',  ({ I }) => {
-  I.amOnPage('/');
-  I.fillField('input[placeholder$=Task]', 'Estudar JavaScript');
-  I.click('Create');
-  I.see('Estudar JavaScript', '.task-item');
-  I.wait(1)
+  const tasksName = faker.company.name()
+
+  I.amOnPage('/')
+  I.fillField('input[placeholder$=Task]', tasksName)
+  I.click('Create')
+  I.see(tasksName, '.task-item')
+
+  I.wait(3)
 });
