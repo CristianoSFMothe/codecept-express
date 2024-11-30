@@ -1,9 +1,10 @@
-const { faker } = require('@faker-js/faker')
-
 Feature('tasks')
 
 Scenario('deve poder cadastrar uma nova tarefa',  ({ I }) => {
-  const tasksName = faker.company.name()
+  const tasksName = 'Estudar JavaScript'
+
+  I.sendDeleteRequest('http://localhost:3333/helper/tasks/' + tasksName)
+  I.seeResponseCodeIsSuccessful()
 
   I.amOnPage('/')
   I.fillField('input[placeholder$=Task]', tasksName)
@@ -11,4 +12,4 @@ Scenario('deve poder cadastrar uma nova tarefa',  ({ I }) => {
   I.see(tasksName, '.task-item')
 
   I.wait(3)
-});
+})
