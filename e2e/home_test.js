@@ -1,4 +1,4 @@
-Feature('Home')
+Feature('home')
 
 Scenario('Webapp deve estar online',  ({ I }) => {
   I.amOnPage('/')
