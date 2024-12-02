@@ -1,15 +1,14 @@
 Feature('tasks')
 
-Scenario('deve poder cadastrar uma nova tarefa',  ({ I }) => {
+Scenario('deve poder cadastrar uma nova tarefa',  ({ I, tasksPage }) => {
   const taskName = 'Estudar JavaScript'
 
   I.deleteByHelper(taskName)
-  I.createTask(taskName)
-  
-  I.see(taskName, '.task-item')
+  tasksPage.create(taskName)
+  tasksPage.haveTask(taskName)
 })
 
-Scenario('não deve cadastrar tarefas com nome duplicado', ({ I }) => {
+Scenario('não deve cadastrar tarefas com nome duplicado', ({ I, tasksPage }) => {
   const task = {
     name: 'Estudar Automação',
     is_done: false,
@@ -17,8 +16,7 @@ Scenario('não deve cadastrar tarefas com nome duplicado', ({ I }) => {
 
   I.deleteByHelper(task.name)
   I.postTask(task)
-  I.createTask(task.name)
-
-  I.see('Task already exists!', '.swal2-html-container')
+  tasksPage.create(task.name)
+  tasksPage.popUpHaveTask('Task already exists!')
 
 })

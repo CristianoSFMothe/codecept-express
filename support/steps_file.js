@@ -12,12 +12,5 @@ module.exports = function() {
       this.sendPostRequest('/tasks/', task)
       this.seeResponseCodeIsSuccessful()
     },
-
-    createTask: function(taskName) {
-      this.amOnPage('/')
-      this.fillField('input[class*=NewTask]', taskName)
-      this.click('Create')
-    }
-
   });
 }
