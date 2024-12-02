@@ -1,35 +1,24 @@
 Feature('tasks')
 
 Scenario('deve poder cadastrar uma nova tarefa',  ({ I }) => {
-  const tasksName = 'Estudar JavaScript'
+  const taskName = 'Estudar JavaScript'
 
-  I.sendDeleteRequest('/helper/tasks/' + tasksName)
-  I.seeResponseCodeIsSuccessful()
-
-  I.amOnPage('/')
-  I.fillField('input[placeholder$=Task]', tasksName)
-  I.click('Create')
-  I.see(tasksName, '.task-item')
-
-  I.wait(3)
+  I.deleteByHelper(taskName)
+  I.createTask(taskName)
+  
+  I.see(taskName, '.task-item')
 })
 
-Scenario.only('não deve cadastrar tarefas com nome duplicado', ({ I }) => {
+Scenario('não deve cadastrar tarefas com nome duplicado', ({ I }) => {
   const task = {
     name: 'Estudar Automação',
     is_done: false,
   }
 
-  I.sendDeleteRequest('/helper/tasks/' + task.name)
-  I.seeResponseCodeIsSuccessful()
+  I.deleteByHelper(task.name)
+  I.postTask(task)
+  I.createTask(task.name)
 
-  I.sendPostRequest('/tasks/', task)
-  I.seeResponseCodeIsSuccessful()
+  I.see('Task already exists!', '.swal2-html-container')
 
-  I.amOnPage('/')
-  I.fillField('input[placeholder$=Task]', task.name)
-  I.click('Create')
-  // I.see('Task already exists!', '.swal2-html-container')
-
-  I.wait(3)
 })
