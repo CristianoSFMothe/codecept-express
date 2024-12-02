@@ -8,14 +8,14 @@ tasks.add(['Estudar NodeJs'])
 tasks.add(['Ler um livro de Node.js'])
 tasks.add(['Ler um livro de Testes de Software'])
 
-Data(tasks).Scenario('deve poder cadastrar uma nova tarefa',  ({ I, tasksPage, current }) => {
+Data(tasks).Scenario('deve poder cadastrar uma nova tarefa', ({ I, tasksPage, current }) => {
   const taskName = current.name
 
   I.deleteByHelper(taskName)
   tasksPage.create(taskName)
   tasksPage.haveTask(taskName)
 
-})
+}).tag('create')
 
 Scenario('não deve cadastrar tarefas com nome duplicado', ({ I, tasksPage }) => {
   const task = {
@@ -28,4 +28,4 @@ Scenario('não deve cadastrar tarefas com nome duplicado', ({ I, tasksPage }) =>
   tasksPage.create(task.name)
   tasksPage.popUpHaveTask('Task already exists!')
 
-})
+}).tag('duplicate')
